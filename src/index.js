@@ -18,7 +18,12 @@ app.get('/', (req, res) => {
   res.send('School Management API is running. Available endpoints: POST /api/addSchool, GET /api/listSchools');
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start the server locally if not in Vercel production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+// Export the app for Vercel serverless deployment
+module.exports = app;
